@@ -14,7 +14,7 @@ const RightBlock = () => {
       />
       <Box mt={"lg"}>
         <Text align="center" size={26} weight={600} color={COLORS.primary}>
-          Pallet Mapping Dashboard
+          Pallet Mapping
         </Text>
         <Text align="center" size={16} weight={400} color={COLORS.gray} mt={10}>
           flipkart pallet mapping dashboard to ease the life of daily shipments

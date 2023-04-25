@@ -8,6 +8,9 @@ export const styles = createStyles((theme) => ({
     alignItems: "center",
     justifyContent: "center",
     padding: "5em",
+    "@media(max-width: 500px)": {
+      padding: "2em",
+    },
   },
   rightContainer: {
     display: "flex",

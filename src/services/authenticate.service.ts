@@ -17,6 +17,8 @@ export const checkUserAuthenticate = (
       message: data.message,
       color: "red",
     });
+  } else {
+    navigation("/login");
   }
 };
 

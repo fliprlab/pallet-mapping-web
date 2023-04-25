@@ -21,7 +21,7 @@ const Login = () => {
 
   return (
     <Grid sx={{ minHeight: "100vh" }} gutter={0}>
-      <Grid.Col span={5} className={classes.leftContainer}>
+      <Grid.Col sm={5} className={classes.leftContainer}>
         <Box sx={{ width: "100%" }}>
           <Box mb={60}>
             <Text weight={700} size={26} color={COLORS.secondary}>
@@ -34,7 +34,7 @@ const Login = () => {
           <LoginForm refetch={refetch} />
         </Box>
       </Grid.Col>
-      <Grid.Col span={7} className={classes.rightContainer}>
+      <Grid.Col sm={7} className={classes.rightContainer}>
         <RightBlock />
       </Grid.Col>
     </Grid>

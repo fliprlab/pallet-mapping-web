@@ -63,5 +63,8 @@ const styles = createStyles({
   img: {
     maxWidth: 180,
     "& img": { width: "100%" },
+    "@media(max-width:400px)": {
+      display: "none",
+    },
   },
 });

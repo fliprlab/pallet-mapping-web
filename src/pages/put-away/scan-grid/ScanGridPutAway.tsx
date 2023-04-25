@@ -61,7 +61,7 @@ const ScanGridPutAway = () => {
       <ConfirmModal
         ref={modalRef}
         title="Map Grid"
-        subtitle={`Are you sure you want to map grid ${gridId} with this palled ${palletId}.`}
+        subtitle={`Are you sure you want to map grid ${gridId} with this pallet ${palletId}.`}
         handleYesClick={() => {
           mappedGrid();
           modalRef.current?.toggleModal();

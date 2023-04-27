@@ -14,10 +14,11 @@ const TheLayout = () => {
       }}
       navbarOffsetBreakpoint="sm"
       asideOffsetBreakpoint="sm"
-      navbar={<TheSidebar />}
+      // navbar={<TheSidebar />}
+      header={<TheHeader />}
+      fixed={true}
     >
       <Box sx={{ height: "100%" }}>
-        <TheHeader />
         <Outlet />
       </Box>
     </AppShell>

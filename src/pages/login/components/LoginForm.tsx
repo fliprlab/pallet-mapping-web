@@ -59,7 +59,7 @@ const LoginForm: React.FC<IProps> = ({ refetch }) => {
       </Box>
 
       <Box mt={35}>
-        <SubmitBtn label="Submit" type="secondary" loading={isLoading} />
+        <SubmitBtn label="Submit" type="primary" loading={isLoading} />
       </Box>
     </form>
   );

@@ -6,6 +6,7 @@ import { checkUserAuthenticate } from "../../services/authenticate.service";
 import LoginForm from "./components/LoginForm";
 import RightBlock from "./components/RightBlock";
 import { styles } from "./Login.styles";
+import { IMAGES } from "../../images";
 
 const Login = () => {
   const { classes } = styles();
@@ -20,25 +21,47 @@ const Login = () => {
   }
 
   return (
-    <Grid sx={{ minHeight: "100vh" }} gutter={0}>
-      <Grid.Col sm={5} className={classes.leftContainer}>
-        <Box sx={{ width: "100%" }}>
-          <Box mb={60}>
-            <Text weight={700} size={26} color={COLORS.secondary}>
-              Login To Pallet Mapping
-            </Text>
-            <Text weight={500} size={18} color={COLORS.grey}>
-              Welcome Back,
-            </Text>
-          </Box>
-          <LoginForm refetch={refetch} />
+    <Box
+      display={"flex"}
+      style={{
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "100vh",
+      }}
+    >
+      <Box>
+        <Box className={classes.heroBanner}>
+          <img src={IMAGES.intuFlipLogo} width={150} />
         </Box>
-      </Grid.Col>
-      <Grid.Col sm={7} className={classes.rightContainer}>
-        <RightBlock />
-      </Grid.Col>
-    </Grid>
+        <Box className={classes.textContainer}>
+          <Text className={classes.loginTo}>LOGIN TO</Text>
+          <Text className={classes.palletMapping}>PALLET MAPPING APP</Text>
+        </Box>
+        <LoginForm refetch={refetch} />
+      </Box>
+    </Box>
   );
+
+  // return (
+  //   <Grid sx={{ minHeight: "100vh" }} gutter={0}>
+  //     <Grid.Col sm={5} className={classes.leftContainer}>
+  //       <Box sx={{ width: "100%" }}>
+  //         <Box mb={60}>
+  //           <Text weight={700} size={26} color={COLORS.secondary}>
+  //             Login To Pallet Mapping
+  //           </Text>
+  //           <Text weight={500} size={18} color={COLORS.grey}>
+  //             Welcome Back,
+  //           </Text>
+  //         </Box>
+  //         <LoginForm refetch={refetch} />
+  //       </Box>
+  //     </Grid.Col>
+  //     <Grid.Col sm={7} className={classes.rightContainer}>
+  //       <RightBlock />
+  //     </Grid.Col>
+  //   </Grid>
+  // );
 };
 
 export default Login;

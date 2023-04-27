@@ -1,7 +1,6 @@
 import { AppShell, Box } from "@mantine/core";
-import { Outlet } from "react-router-dom";
+import { Outlet, ScrollRestoration } from "react-router-dom";
 import TheHeader from "./TheHeader";
-import TheSidebar from "./TheSidebar";
 
 const TheLayout = () => {
   return (
@@ -20,6 +19,7 @@ const TheLayout = () => {
     >
       <Box sx={{ height: "100%" }}>
         <Outlet />
+        <ScrollRestoration />
       </Box>
     </AppShell>
   );

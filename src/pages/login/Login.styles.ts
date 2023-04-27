@@ -23,7 +23,7 @@ export const styles = createStyles((theme) => ({
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
-    marginBottom: 100,
+    marginBottom: 50,
   },
   textContainer: {
     marginTop: 25,

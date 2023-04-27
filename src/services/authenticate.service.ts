@@ -24,5 +24,5 @@ export const checkUserAuthenticate = (
 
 export const logoutUser = () => {
   sessionStorage.clear();
-  window.location.replace("/");
+  window.location.replace("/login");
 };

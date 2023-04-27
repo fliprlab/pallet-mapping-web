@@ -17,5 +17,6 @@ export const useCheckAuthenticated = (
 ) => {
   return useQuery(["admin", "get-profile"], getProfile, {
     onSuccess,
+    onError,
   });
 };

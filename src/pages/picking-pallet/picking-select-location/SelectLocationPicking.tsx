@@ -7,15 +7,26 @@ import { useGetLocationsQuery } from "../../../hooks/locations/useGetLocations.q
 import { useNavigate } from "react-router-dom";
 import FilledBtn from "../../../components/button/FilledBtn";
 import { usePickingStore } from "../../../store/usePickingStore";
+import { useHeaderStore } from "../../../store/headerStore";
+import { IMAGES } from "../../../images";
 
 const SelectLocationPicking = () => {
   const navigate = useNavigate();
   const { locations, setLocations } = usePickingStore((state) => state);
   const { isLoading, data, refetch } = useGetLocationsQuery();
+  const setHeader = useHeaderStore((h) => h.setHeader);
 
   useEffect(() => {
     refetch();
   }, [refetch]);
+
+  useEffect(() => {
+    setHeader({
+      icon: IMAGES.backArrowIcon,
+      iconClick: () => navigate(-1),
+      lebel: "Select Location (Picking Shipment)",
+    });
+  }, []);
 
   const optionsLocation = useMemo(() => {
     if (!isLoading && data) {

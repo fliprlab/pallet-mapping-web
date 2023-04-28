@@ -1,10 +1,10 @@
-import { Box, Grid, LoadingOverlay, Text } from "@mantine/core";
+import { Box, LoadingOverlay, Text } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
-import { COLORS } from "../../colors";
+
 import { useCheckAuthenticated } from "../../hooks/auth/useCheckAuthenthicated";
 import { checkUserAuthenticate } from "../../services/authenticate.service";
 import LoginForm from "./components/LoginForm";
-import RightBlock from "./components/RightBlock";
+
 import { styles } from "./Login.styles";
 import { IMAGES } from "../../images";
 
@@ -26,12 +26,13 @@ const Login = () => {
       style={{
         justifyContent: "center",
         alignItems: "center",
-        minHeight: "100vh",
+        height: "100vh",
+        maxHeight: "-webkit-fill-available",
       }}
     >
       <Box>
         <Box className={classes.heroBanner}>
-          <img src={IMAGES.intuFlipLogo} width={150} />
+          <img src={IMAGES.intuFlipLogo} width={150} alt="logos" />
         </Box>
         <Box className={classes.textContainer}>
           <Text className={classes.loginTo}>LOGIN TO</Text>

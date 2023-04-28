@@ -1,24 +1,32 @@
 import { AppShell, Box } from "@mantine/core";
-import { Outlet } from "react-router-dom";
+import { Outlet, ScrollRestoration } from "react-router-dom";
 import TheHeader from "./TheHeader";
-import TheSidebar from "./TheSidebar";
 
 const TheLayout = () => {
   return (
     <AppShell
       styles={{
         main: {
-          background: "#F5F5F5",
+          background: "#fff",
           padding: 0,
+          "@media(max-width:767px)": {
+            paddingRight: 0,
+          },
         },
       }}
       navbarOffsetBreakpoint="sm"
       asideOffsetBreakpoint="sm"
-      navbar={<TheSidebar />}
+      // navbar={<TheSidebar />}
+      header={<TheHeader />}
+      fixed={true}
     >
-      <Box sx={{ height: "100%" }}>
-        <TheHeader />
+      <Box
+        sx={{
+          height: "100%",
+        }}
+      >
         <Outlet />
+        <ScrollRestoration />
       </Box>
     </AppShell>
   );

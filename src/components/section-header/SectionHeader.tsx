@@ -1,5 +1,6 @@
-import { Box, Text } from "@mantine/core";
+import { Box, Text, createStyles } from "@mantine/core";
 import React, { memo } from "react";
+import { COLORS } from "../../colors";
 
 interface IProps {
   title: string;
@@ -7,21 +8,30 @@ interface IProps {
 }
 
 const SectionHeader: React.FC<IProps> = ({ title, flowName }) => {
+  const { classes } = useStyle();
+
   return (
-    <Box>
-      <Text weight={500} size={20}>
-        {title}
-        <span
-          style={{
-            fontWeight: 400,
-            textTransform: "uppercase",
-            fontSize: 16,
-            marginLeft: 10,
-          }}
-        >{`(${flowName})`}</span>
-      </Text>
+    <Box mt={30}>
+      <Text className={classes.headingBlack}>{title}</Text>
+      <Text className={classes.headingBlue}>{flowName}</Text>
     </Box>
   );
 };
 
 export default memo(SectionHeader);
+
+const useStyle = createStyles({
+  headingBlack: {
+    fontWeight: 700,
+    fontSize: 20,
+    color: COLORS.black,
+    marginLeft: 10,
+  },
+  headingBlue: {
+    fontWeight: 700,
+    fontSize: 22,
+    color: COLORS.primary,
+    marginLeft: 10,
+    marginBottom: 20,
+  },
+});

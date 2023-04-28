@@ -1,6 +1,5 @@
 import { Box, Text } from "@mantine/core";
 import React, { useRef, useState } from "react";
-import SectionHeader from "../../../components/section-header/SectionHeader";
 import KeyEventInput from "../../../components/input/KeyEventInput";
 import FilledBtn from "../../../components/button/FilledBtn";
 import { useNavigate, useParams } from "react-router-dom";
@@ -43,7 +42,6 @@ const ScanGridPutAway = () => {
 
   return (
     <Box p={"2em"}>
-      <SectionHeader title="Scan Grid" flowName="put-away" />
       <Box mt={"xs"}>
         <KeyEventInput placeholder="Enter Grid Id" onEventTrigger={setGridId} />
       </Box>

@@ -1,7 +1,6 @@
 import { Box, Text } from "@mantine/core";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import SectionHeader from "../../../components/section-header/SectionHeader";
 import KeyEventInput from "../../../components/input/KeyEventInput";
 import FilledBtn from "../../../components/button/FilledBtn";
 import { useGridCheckValidPalletMutation } from "../../../hooks/put-away/useGridCheckValidPallet.mutation";
@@ -35,7 +34,6 @@ const PutAwayScanPallet = () => {
 
   return (
     <Box p={"2em"}>
-      <SectionHeader title="Scan Pallet" flowName="put-away" />
       <Box mt={"xs"}>
         <KeyEventInput
           placeholder="Enter Pallet Id"

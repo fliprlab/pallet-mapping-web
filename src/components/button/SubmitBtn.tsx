@@ -6,12 +6,14 @@ interface IProps {
   label: string;
   loading?: boolean;
   type?: "primary" | "secondary";
+  disabled?: boolean;
 }
 
 const SubmitBtn: React.FC<IProps> = ({
   label,
   loading = false,
   type = "primary",
+  disabled = false,
 }) => {
   const { classes } = useStyle();
   return (
@@ -20,6 +22,7 @@ const SubmitBtn: React.FC<IProps> = ({
       disabled={loading}
       type="submit"
       className={type === "primary" ? classes.btnPrimary : classes.btn}
+      style={{ backgroundColor: disabled ? COLORS.lightGrey : COLORS.primary }}
     >
       {label}
     </Button>

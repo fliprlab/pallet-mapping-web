@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { Button } from "@mantine/core";
+import { Button, Sx } from "@mantine/core";
 import { COLORS } from "../../colors";
 
 interface IProps {
@@ -7,9 +7,16 @@ interface IProps {
   onClick: () => void;
   title: string;
   loading?: boolean;
+  sx?: Sx;
 }
 
-const FilledBtn: React.FC<IProps> = ({ onClick, title, disabled, loading }) => {
+const FilledBtn: React.FC<IProps> = ({
+  onClick,
+  title,
+  disabled,
+  loading,
+  sx,
+}) => {
   return (
     <Button
       fullWidth
@@ -19,6 +26,7 @@ const FilledBtn: React.FC<IProps> = ({ onClick, title, disabled, loading }) => {
       sx={{
         backgroundColor: COLORS.primary,
         "&:hover": { backgroundColor: COLORS.primary },
+        ...sx,
       }}
       onClick={onClick}
     >

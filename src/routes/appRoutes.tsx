@@ -9,6 +9,11 @@ import ScanGridPutAway from "../pages/put-away/scan-grid/ScanGridPutAway";
 import SelectLocationPicking from "../pages/picking-pallet/picking-select-location/SelectLocationPicking";
 import GridListPicking from "../pages/picking-pallet/grid-list/GridListPicking";
 import ScanGridPicking from "../pages/picking-pallet/scan-grid/ScanGridPicking";
+import SelectLocationCreateBag from "../pages/create-bag/create-bag-select-location/SelectLocationCreateBag";
+import CreateBag from "../pages/create-bag/create-bag/CreateBag";
+import ItemListCreateBag from "../pages/create-bag/create-bag-items-list/ItemListCreateBag";
+import ScanItemsCreateBag from "../pages/create-bag/create-bag-scan-item/ScanItemsCreateBag";
+import QrCodeScreenCreateBag from "../pages/create-bag/qr-code-screen-create-bag/QrCodeScreenCreateBag";
 
 export const appRouter = createBrowserRouter([
   {
@@ -19,6 +24,27 @@ export const appRouter = createBrowserRouter([
         path: "dashboard",
         element: <Dashboard />,
       },
+      {
+        path: "/create-bag/qr-code/:palletId/:virtualId",
+        element: <QrCodeScreenCreateBag />,
+      },
+      {
+        path: "/create-bag/scan-items",
+        element: <ScanItemsCreateBag />,
+      },
+      {
+        path: "/create-bag/scan-pallet/:location/:palletId",
+        element: <ItemListCreateBag />,
+      },
+      {
+        path: "/create-bag/select-location",
+        element: <SelectLocationCreateBag />,
+      },
+      {
+        path: "/create-bag/scan-pallet/:location",
+        element: <CreateBag />,
+      },
+
       {
         path: "/put-away/select-location",
         element: <SelectLocationPutAway />,

@@ -44,7 +44,7 @@ const styles = createStyles({
     border: "1px solid #CCCCCC",
     boxShadow:
       "2px 0px 4px rgba(218, 218, 218, 0.7), 0px 2px 4px rgba(214, 214, 214, 0.6)",
-    padding: "24px 22px",
+    padding: "20px 20px",
     background: "#FAFAFA",
     borderRadius: 5,
     height: "100%",
@@ -54,7 +54,7 @@ const styles = createStyles({
   },
   heading: {
     margin: 0,
-    fontSize: 22,
+    fontSize: 18,
     textTransform: "uppercase",
     fontWeight: 500,
     marginBottom: 10,
@@ -63,8 +63,5 @@ const styles = createStyles({
   img: {
     maxWidth: 180,
     "& img": { width: "100%" },
-    "@media(max-width:400px)": {
-      display: "none",
-    },
   },
 });

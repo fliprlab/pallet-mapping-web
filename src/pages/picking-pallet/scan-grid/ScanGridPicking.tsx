@@ -27,7 +27,6 @@ const ScanGridPicking = () => {
 
   return (
     <Box p={"2em"}>
-      <SectionHeader title="Scan Grid" flowName="picking-pallet" />
       <Box mt={"xs"}>
         <KeyEventInput
           placeholder="Enter Grid Id"

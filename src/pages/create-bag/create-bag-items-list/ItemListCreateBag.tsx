@@ -17,12 +17,14 @@ const ItemListCreateBag = () => {
   const setHeader = useHeaderStore((h) => h.setHeader);
   const navigation = useNavigate();
   const modalRef = useRef<IConfirmationModalRef>(null);
+  const backModalRef = useRef<IConfirmationModalRef>(null);
+
   const [rmItem, setRmItem] = useState("");
   const { shipments, removeShipment } = useShipmentsStore((state) => state);
   useEffect(() => {
     setHeader({
       icon: IMAGES.backArrowIcon,
-      iconClick: () => navigation(-1),
+      iconClick: () => backModalRef.current?.toggleModal(),
       lebel: `Pallet ID: ${palletId} (Create Bag)`,
     });
   }, []);
@@ -35,8 +37,6 @@ const ItemListCreateBag = () => {
       items: shipments,
       location: location ?? "",
     });
-
-    console.log("res-", res);
 
     if (res.status === "success") {
       navigation(`/create-bag/qr-code/${palletId}/${res.data.virtualId}`);
@@ -101,6 +101,23 @@ const ItemListCreateBag = () => {
       >
         <Text align="center" size={14}>
           Are you sure you want to remove item?
+        </Text>
+      </ConfirmationModal>
+      <ConfirmationModal
+        ref={backModalRef}
+        title="Remove Shipments"
+        oKBtn={{
+          title: "OK",
+          onClick: () => {
+            navigation(-1);
+          },
+        }}
+        noCallback={() => {
+          backModalRef.current?.toggleModal();
+        }}
+      >
+        <Text align="center" size={14}>
+          This will erase all your shipments scanned. Are you Sure?
         </Text>
       </ConfirmationModal>
     </Flex>

@@ -55,7 +55,7 @@ const ScanItemsCreateBag = () => {
     <Box p={"2em"}>
       <Box mt={"xs"}>
         <KeyEventInput
-          placeholder="Enter Pallet Id"
+          placeholder="Enter Item ID"
           onEventTrigger={(e) => {
             addShipments(e);
             setItemId(e);

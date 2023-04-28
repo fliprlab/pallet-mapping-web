@@ -19,7 +19,7 @@ const QrCodeScreenCreateBag = () => {
   useEffect(() => {
     setHeader({
       icon: IMAGES.backArrowIcon,
-      iconClick: () => navigation(-1),
+      iconClick: () => navigation(-3),
       lebel: ` (Create Bag)`,
     });
   }, []);

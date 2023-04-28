@@ -1,5 +1,5 @@
 import { Box } from "@mantine/core";
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Select from "react-select";
 import { useGetLocationsQuery } from "../../../hooks/locations/useGetLocations.query";
 
@@ -10,6 +10,7 @@ import { useHeaderStore } from "../../../store/headerStore";
 import { IMAGES } from "../../../images";
 
 const SelectLocationPicking = () => {
+  const [focusCount, setFocusCount] = useState(0);
   const navigate = useNavigate();
   const { locations, setLocations } = usePickingStore((state) => state);
   const { isLoading, data, refetch } = useGetLocationsQuery();
@@ -54,6 +55,8 @@ const SelectLocationPicking = () => {
           onChange={(e) => {
             setLocations(e.map((item: any) => item.value));
           }}
+          onFocus={() => setFocusCount((e) => e + 1)}
+          isSearchable={focusCount > 1}
         />
       </Box>
       <FilledBtn

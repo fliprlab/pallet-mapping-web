@@ -11,7 +11,7 @@ interface Props {
 
 const SelectLocation = (props: Props) => {
   const { onSelectLocation } = props;
-
+  const [focusCount, setFocusCount] = useState(0);
   const { isLoading, data, refetch } = useGetLocationsQuery();
 
   useEffect(() => {
@@ -43,6 +43,8 @@ const SelectLocation = (props: Props) => {
           onChange={(e: any) => {
             onSelectLocation(e.value);
           }}
+          onFocus={() => setFocusCount((e) => e + 1)}
+          isSearchable={focusCount > 1}
         />
       </Box>
     </React.Fragment>

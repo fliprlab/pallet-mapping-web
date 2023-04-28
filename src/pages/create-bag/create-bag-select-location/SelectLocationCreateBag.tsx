@@ -5,10 +5,12 @@ import FilledBtn from "../../../components/button/FilledBtn";
 import { useHeaderStore } from "../../../store/headerStore";
 import { IMAGES } from "../../../images";
 import SelectLocation from "../../../components/select-location/SelectLocation";
+import { useShipmentsStore } from "../../../store/shipmentsStore";
 
 const SelectLocationCreateBag = () => {
   const navigate = useNavigate();
   const [location, setLocation] = useState("");
+  const { clearStore } = useShipmentsStore((state) => state);
   const setHeader = useHeaderStore((h) => h.setHeader);
 
   useEffect(() => {
@@ -25,6 +27,7 @@ const SelectLocationCreateBag = () => {
       <FilledBtn
         disabled={location === ""}
         onClick={() => {
+          clearStore();
           navigate(`/create-bag/scan-pallet/${location}`);
         }}
         title="Confirm Details"

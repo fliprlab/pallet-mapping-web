@@ -1,7 +1,9 @@
 import { Box, Text } from "@mantine/core";
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import KeyEventInput from "../../../components/input/KeyEventInput";
+import KeyEventInput, {
+  IKeyKeyEventInputRef,
+} from "../../../components/input/KeyEventInput";
 import FilledBtn from "../../../components/button/FilledBtn";
 import { showNotification } from "@mantine/notifications";
 import { useHeaderStore } from "../../../store/headerStore";
@@ -18,6 +20,7 @@ const CreateBag = () => {
   const [palletId, setPalletId] = useState("");
   const setHeader = useHeaderStore((h) => h.setHeader);
   const modalRef = useRef<IConfirmationModalRef>(null);
+  const inputRef = useRef<IKeyKeyEventInputRef>(null);
 
   useEffect(() => {
     if (location === "") {
@@ -38,6 +41,7 @@ const CreateBag = () => {
       }
     } else {
       setPalletId("");
+      inputRef.current?.focus();
       showNotification({
         message: res.data.message,
         color: "red",
@@ -57,6 +61,7 @@ const CreateBag = () => {
     <Box p={"2em"}>
       <Box mt={"xs"}>
         <KeyEventInput
+          ref={inputRef}
           placeholder="Enter Pallet Id"
           onEventTrigger={setPalletId}
         />
@@ -81,6 +86,7 @@ const CreateBag = () => {
         }}
         noCallback={() => {
           setPalletId("");
+          inputRef.current?.focus();
           modalRef.current?.toggleModal();
         }}
       >

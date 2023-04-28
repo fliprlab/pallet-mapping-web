@@ -1,6 +1,8 @@
 import { Box, Text } from "@mantine/core";
 import React, { useRef, useState } from "react";
-import KeyEventInput from "../../../components/input/KeyEventInput";
+import KeyEventInput, {
+  IKeyKeyEventInputRef,
+} from "../../../components/input/KeyEventInput";
 import FilledBtn from "../../../components/button/FilledBtn";
 import { useNavigate, useParams } from "react-router-dom";
 import ConfirmModal, {
@@ -11,6 +13,8 @@ import { showNotification } from "@mantine/notifications";
 
 const ScanGridPutAway = () => {
   const navigation = useNavigate();
+  const inputRef = useRef<IKeyKeyEventInputRef>(null);
+
   const modalRef = useRef<IConfirmModalRef>(null);
   const [gridId, setGridId] = useState("");
   const { location, palletId } = useParams();
@@ -37,13 +41,18 @@ const ScanGridPutAway = () => {
         color: "red",
       });
       setGridId("");
+      inputRef.current?.focus();
     }
   };
 
   return (
     <Box p={"2em"}>
       <Box mt={"xs"}>
-        <KeyEventInput placeholder="Enter Grid Id" onEventTrigger={setGridId} />
+        <KeyEventInput
+          ref={inputRef}
+          placeholder="Enter Grid Id"
+          onEventTrigger={setGridId}
+        />
       </Box>
       <Text weight={500} my={"md"} align="center">
         Grid Id :- {gridId}
@@ -64,7 +73,10 @@ const ScanGridPutAway = () => {
           mappedGrid();
           modalRef.current?.toggleModal();
         }}
-        handlleNoClick={() => setGridId("")}
+        handlleNoClick={() => {
+          setGridId("");
+          inputRef.current?.focus();
+        }}
       />
     </Box>
   );

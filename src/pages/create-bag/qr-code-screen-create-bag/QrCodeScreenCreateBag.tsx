@@ -25,19 +25,19 @@ const QrCodeScreenCreateBag = () => {
   }, []);
 
   return (
-    <Box mt={60}>
+    <Box mt={15}>
       <Flex justify={"center"} align={"center"} direction={"column"}>
         <Box id="qrCodeBlock" p={"sm"}>
           <QrCode size={200} value={createQrData(shipments)} />
-          <Text size={14} weight={700} color="#373737" mt={28} align="center">
+          <Text size={14} weight={700} color="#373737" mt={10} align="center">
             Pallet Id :- {palletId}
           </Text>
-          <Text size={14} weight={700} color="#373737" mt={28} align="center">
+          <Text size={14} weight={700} color="#373737" mt={10} align="center">
             Virtual Id :- {virtualId}
           </Text>
         </Box>
       </Flex>
-      <Box px={"md"} mt={100}>
+      <Box px={"md"} mt={20}>
         <FilledBtn
           title="Download QR Code"
           onClick={() => {

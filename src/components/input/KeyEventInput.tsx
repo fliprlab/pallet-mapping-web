@@ -1,4 +1,12 @@
-import React, { memo, useState, useRef } from "react";
+import React, {
+  memo,
+  useState,
+  useRef,
+  ForwardedRef,
+  forwardRef,
+  useImperativeHandle,
+  useCallback,
+} from "react";
 import { TextInput, createStyles } from "@mantine/core";
 import { COLORS } from "../../colors";
 
@@ -9,15 +17,37 @@ interface IProps {
   placeholder: string;
 }
 
-const KeyEventInput: React.FC<IProps> = ({
-  onEventTrigger,
-  disabled = false,
-  alwaysFocus = false,
-  placeholder,
-}) => {
+export interface IKeyKeyEventInputRef {
+  focus: () => void;
+}
+
+const KeyEventInput = (
+  props: IProps,
+  ref: ForwardedRef<IKeyKeyEventInputRef>
+) => {
+  const {
+    onEventTrigger,
+    disabled = false,
+    alwaysFocus = false,
+    placeholder,
+  } = props;
   const inputRef = useRef<HTMLInputElement>(null);
   const { classes } = styles();
   const [value, setValue] = useState("");
+
+  const focus = useCallback(() => {
+    inputRef.current?.focus();
+  }, []);
+
+  useImperativeHandle(
+    ref,
+    () => {
+      return {
+        focus,
+      };
+    },
+    [focus]
+  );
 
   return (
     <TextInput
@@ -30,7 +60,6 @@ const KeyEventInput: React.FC<IProps> = ({
       onChange={(e) => setValue(e.target.value)}
       onBlur={() => {
         alwaysFocus && setTimeout(() => inputRef.current?.focus(), 10);
-        // inputRef.current?.focus();
       }}
       onKeyPress={(e) => {
         if (e.key === "Enter") {
@@ -42,7 +71,7 @@ const KeyEventInput: React.FC<IProps> = ({
   );
 };
 
-export default memo(KeyEventInput);
+export default memo(forwardRef(KeyEventInput));
 
 const styles = createStyles({
   input: {

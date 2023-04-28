@@ -50,7 +50,7 @@ const ItemListCreateBag = () => {
       p={25}
       direction={"column"}
       justify={"space-between"}
-      sx={{ minHeight: "calc(100vh - 83px)" }}
+      sx={{ minHeight: "calc(100vh - 130px)" }}
     >
       <Box sx={{ flex: 1 }}>
         {shipments.map((item, i) => {

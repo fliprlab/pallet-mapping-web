@@ -3,9 +3,23 @@ import { usePickingStore } from "../../../store/usePickingStore";
 import { useGetPickUpItemsQuery } from "../../../hooks/pick-up/query/useGetPickUpItems.query";
 import ListCard from "./components/ListCard";
 import { Box, Grid } from "@mantine/core";
+import { useHeaderStore } from "../../../store/headerStore";
+import { IMAGES } from "../../../images";
+import { useNavigate } from "react-router-dom";
 
 const GridListPicking = () => {
   const { locations } = usePickingStore((state) => state);
+  const navigate = useNavigate();
+  const setHeader = useHeaderStore((h) => h.setHeader);
+
+  useEffect(() => {
+    setHeader({
+      icon: IMAGES.backArrowIcon,
+      iconClick: () => navigate(-1),
+      lebel: "Grid List (Picking Shipment)",
+    });
+  }, []);
+
   const { isLoading, data, refetch } = useGetPickUpItemsQuery({
     locations: locations,
   });

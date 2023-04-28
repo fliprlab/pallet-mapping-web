@@ -39,6 +39,13 @@ const SelectLocationPicking = () => {
 
   return (
     <Box p={"2em"}>
+      <Box>
+        <img
+          src={IMAGES.selectLocation}
+          alt="location"
+          style={{ width: "100%", maxWidth: "289px" }}
+        />
+      </Box>
       <Box mt={"xs"}>
         <Select
           isMulti

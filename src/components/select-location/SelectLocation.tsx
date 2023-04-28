@@ -30,7 +30,11 @@ const SelectLocation = (props: Props) => {
 
   return (
     <React.Fragment>
-      <img src={IMAGES.selectLocation} />
+      <img
+        src={IMAGES.selectLocation}
+        alt="location"
+        style={{ width: "100%", maxWidth: "289px" }}
+      />
       <Box mt={"xs"}>
         <SectionHeader title="SELECT YOUR" flowName="LOCATION" />
         <Select

@@ -4,31 +4,19 @@ import TheHeader from "./TheHeader";
 
 const TheLayout = () => {
   return (
-    <AppShell
-      styles={{
-        main: {
-          background: "#fff",
-          padding: 0,
-          "@media(max-width:767px)": {
-            paddingRight: 0,
-          },
-        },
+    <Box
+      sx={{
+        minHeight: "100vh",
+        maxHeight: "-webkit-fill-available",
+        background: "#fff",
       }}
-      navbarOffsetBreakpoint="sm"
-      asideOffsetBreakpoint="sm"
-      // navbar={<TheSidebar />}
-      header={<TheHeader />}
-      fixed={true}
     >
-      <Box
-        sx={{
-          height: "100%",
-        }}
-      >
-        <Outlet />
-        <ScrollRestoration />
-      </Box>
-    </AppShell>
+      <TheHeader />
+
+      <Outlet />
+
+      <ScrollRestoration />
+    </Box>
   );
 };
 

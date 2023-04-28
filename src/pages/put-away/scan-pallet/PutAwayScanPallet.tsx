@@ -1,7 +1,9 @@
 import { Box, Text } from "@mantine/core";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import KeyEventInput from "../../../components/input/KeyEventInput";
+import KeyEventInput, {
+  IKeyKeyEventInputRef,
+} from "../../../components/input/KeyEventInput";
 import FilledBtn from "../../../components/button/FilledBtn";
 import { useGridCheckValidPalletMutation } from "../../../hooks/put-away/useGridCheckValidPallet.mutation";
 import { showNotification } from "@mantine/notifications";
@@ -10,6 +12,7 @@ const PutAwayScanPallet = () => {
   const navigation = useNavigate();
   const location = useParams().location;
   const [palletId, setPalletId] = useState("");
+  const inputRef = useRef<IKeyKeyEventInputRef>(null);
 
   useEffect(() => {
     if (location === "") {
@@ -29,6 +32,7 @@ const PutAwayScanPallet = () => {
         color: "red",
       });
       setPalletId("");
+      inputRef.current?.focus();
     }
   };
 
@@ -36,6 +40,7 @@ const PutAwayScanPallet = () => {
     <Box p={"2em"}>
       <Box mt={"xs"}>
         <KeyEventInput
+          ref={inputRef}
           placeholder="Enter Pallet Id"
           onEventTrigger={setPalletId}
         />

@@ -13,12 +13,14 @@ import ConfirmationModal, {
   IConfirmationModalRef,
 } from "../../../components/modal/ConfirmationModal";
 import NeesConFirmationDetails from "./components/NeesConFirmationDetails";
+import { useShipmentsStore } from "../../../store/shipmentsStore";
 
 const CreateBag = () => {
   const navigation = useNavigate();
   const location = useParams().location;
   const [palletId, setPalletId] = useState("");
   const setHeader = useHeaderStore((h) => h.setHeader);
+  const { clearStore } = useShipmentsStore((state) => state);
   const modalRef = useRef<IConfirmationModalRef>(null);
   const inputRef = useRef<IKeyKeyEventInputRef>(null);
 
@@ -81,6 +83,7 @@ const CreateBag = () => {
         oKBtn={{
           onClick: () => {
             modalRef.current?.toggleModal();
+            clearStore();
             navigation(palletId);
           },
         }}

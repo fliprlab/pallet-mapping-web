@@ -6,6 +6,7 @@ import putAway from "./put-away.png";
 import putAway_active from "./put-away-active.png";
 import picking from "./picking.png";
 import picking_active from "./picking-active.png";
+import trash from "./trash.png";
 
 export const ICONS = {
   home,
@@ -16,4 +17,5 @@ export const ICONS = {
   putAway_active,
   picking,
   picking_active,
+  trash,
 };

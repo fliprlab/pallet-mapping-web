@@ -1,6 +1,5 @@
 import { Box } from "@mantine/core";
 import React, { useEffect, useMemo } from "react";
-import SectionHeader from "../../../components/section-header/SectionHeader";
 import Select from "react-select";
 import { useGetLocationsQuery } from "../../../hooks/locations/useGetLocations.query";
 
@@ -40,7 +39,6 @@ const SelectLocationPicking = () => {
 
   return (
     <Box p={"2em"}>
-      <SectionHeader title="Select Location" flowName="picking-pallet" />
       <Box mt={"xs"}>
         <Select
           isMulti

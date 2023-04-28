@@ -7,7 +7,10 @@ export const request = async (options: AxiosRequestConfig<any>) => {
   const token = sessionStorage.getItem(`${process.env.REACT_APP_SECRET_KEY}`);
   client.defaults.headers.common.authorization = `Bearer ${token}`;
 
-  const onSuccess = (response: AxiosResponse) => response.data;
+  const onSuccess = (response: AxiosResponse) => ({
+    ...response.data,
+    statusCode: response.status,
+  });
   const onError = (error: any) => {
     if (error.response.status >= 500) {
       showNotification({

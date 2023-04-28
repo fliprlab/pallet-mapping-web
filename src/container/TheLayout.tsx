@@ -7,8 +7,11 @@ const TheLayout = () => {
     <AppShell
       styles={{
         main: {
-          background: "#F5F5F5",
+          background: "#fff",
           padding: 0,
+          "@media(max-width:767px)": {
+            paddingRight: 0,
+          },
         },
       }}
       navbarOffsetBreakpoint="sm"
@@ -17,7 +20,11 @@ const TheLayout = () => {
       header={<TheHeader />}
       fixed={true}
     >
-      <Box sx={{ height: "100%" }}>
+      <Box
+        sx={{
+          height: "100%",
+        }}
+      >
         <Outlet />
         <ScrollRestoration />
       </Box>

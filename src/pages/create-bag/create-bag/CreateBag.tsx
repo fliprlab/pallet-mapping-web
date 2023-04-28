@@ -1,19 +1,23 @@
 import { Box, Text } from "@mantine/core";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import SectionHeader from "../../../components/section-header/SectionHeader";
 import KeyEventInput from "../../../components/input/KeyEventInput";
 import FilledBtn from "../../../components/button/FilledBtn";
-import { useGridCheckValidPalletMutation } from "../../../hooks/put-away/useGridCheckValidPallet.mutation";
 import { showNotification } from "@mantine/notifications";
 import { useHeaderStore } from "../../../store/headerStore";
 import { IMAGES } from "../../../images";
+import { useCheckPalletStatusMutation } from "../../../hooks/create-bag/useCheckPalletStatus.mutation";
+import ConfirmationModal, {
+  IConfirmationModalRef,
+} from "../../../components/modal/ConfirmationModal";
+import NeesConFirmationDetails from "./components/NeesConFirmationDetails";
 
 const CreateBag = () => {
   const navigation = useNavigate();
   const location = useParams().location;
   const [palletId, setPalletId] = useState("");
   const setHeader = useHeaderStore((h) => h.setHeader);
+  const modalRef = useRef<IConfirmationModalRef>(null);
 
   useEffect(() => {
     if (location === "") {
@@ -21,18 +25,23 @@ const CreateBag = () => {
     }
   }, [location, navigation]);
 
-  const { isLoading, mutateAsync } = useGridCheckValidPalletMutation();
+  const { isLoading, mutateAsync } = useCheckPalletStatusMutation();
 
-  const checkValidPallet = async () => {
-    const res = await mutateAsync({ palletId, location: location ?? "" });
+  const checkPalletStatus = async () => {
+    const res = await mutateAsync({ palletId });
+
     if (res.status === "success") {
-      navigation(`/put-away/scan-grid/${location}/${palletId}`);
+      if (res.statusCode === 226) {
+        modalRef.current?.toggleModal();
+      } else {
+        navigation(palletId);
+      }
     } else {
+      setPalletId("");
       showNotification({
         message: res.data.message,
         color: "red",
       });
-      setPalletId("");
     }
   };
 
@@ -57,10 +66,26 @@ const CreateBag = () => {
       </Text>
       <FilledBtn
         title="Load Items"
-        onClick={checkValidPallet}
+        onClick={checkPalletStatus}
         disabled={palletId === ""}
         loading={isLoading}
       />
+      <ConfirmationModal
+        ref={modalRef}
+        title="NEED CONFIRMATION"
+        oKBtn={{
+          onClick: () => {
+            modalRef.current?.toggleModal();
+            navigation(palletId);
+          },
+        }}
+        noCallback={() => {
+          setPalletId("");
+          modalRef.current?.toggleModal();
+        }}
+      >
+        <NeesConFirmationDetails palletId={palletId} />
+      </ConfirmationModal>
     </Box>
   );
 };

@@ -23,17 +23,21 @@ const LoginForm: React.FC<IProps> = ({ refetch }) => {
 
   const handleLogin = useCallback(
     async (values: ILoginFormValues) => {
-      const res = await mutateAsync(values);
-      if (res.status === "success") {
-        formHandler.reset();
-        const secret: any = process.env.REACT_APP_SECRET_KEY;
-        sessionStorage.setItem(secret, res.data.token);
-        refetch();
-      } else {
-        showNotification({
-          message: res.data.message,
-          color: "red",
-        });
+      try {
+        const res = await mutateAsync(values);
+        if (res.status === "success") {
+          formHandler.reset();
+          const secret: any = process.env.REACT_APP_SECRET_KEY;
+          sessionStorage.setItem(secret, res.data.token);
+          refetch();
+        } else {
+          showNotification({
+            message: res.data.message,
+            color: "red",
+          });
+        }
+      } catch (error: any) {
+        showNotification({ message: error.message, color: "red" });
       }
     },
     [mutateAsync, formHandler, refetch]

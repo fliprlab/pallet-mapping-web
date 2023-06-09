@@ -22,7 +22,7 @@ const ScanItemsCreateBag = () => {
   }, []);
 
   const addShipments = (e: string) => {
-    const PALLET_ITEM = /^[A-Z]{4}[0-9]{10}$/;
+    const PALLET_ITEM = /^[A-Z]{4}[0-9]{10}$|^\d{13}$|^\d{14}$/;
     const test = PALLET_ITEM.test(e);
 
     if (test) {

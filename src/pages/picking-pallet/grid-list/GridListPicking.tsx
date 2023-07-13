@@ -18,7 +18,7 @@ const GridListPicking = () => {
       iconClick: () => navigate(-1),
       lebel: "Grid List (Picking Shipment)",
     });
-  }, []);
+  }, [navigate, setHeader]);
 
   const { isLoading, data, refetch } = useGetPickUpItemsQuery({
     locations: locations,
@@ -42,7 +42,7 @@ const GridListPicking = () => {
         <Grid>
           {shipments.map((item: any) => {
             return (
-              <Grid.Col key={item._id} sm={3} xs={6}>
+              <Grid.Col key={item._id} xs={12} lg={12} md={12}>
                 <ListCard item={item} />
               </Grid.Col>
             );

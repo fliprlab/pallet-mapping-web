@@ -1,5 +1,4 @@
 import { create } from "zustand";
-import { IMAGES } from "../images";
 
 interface IStore {
   shipments: string[];

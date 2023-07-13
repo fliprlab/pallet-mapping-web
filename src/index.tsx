@@ -9,6 +9,9 @@ import { RouterProvider } from "react-router-dom";
 import { appRouter } from "./routes/appRoutes";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import GlobalAlert, {
+  CustomAlertConsumer,
+} from "./components/alert/GlobalAlert";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -26,7 +29,14 @@ root.render(
     <QueryClientProvider client={queryClient}>
       <MantineProvider withGlobalStyles withNormalizeCSS>
         <NotificationsProvider position="top-right">
-          <RouterProvider router={appRouter} />
+          <GlobalAlert>
+            <CustomAlertConsumer>
+              {(alert) => {
+                window.customAlert = alert;
+                return <RouterProvider router={appRouter} />;
+              }}
+            </CustomAlertConsumer>
+          </GlobalAlert>
         </NotificationsProvider>
       </MantineProvider>
       <ReactQueryDevtools position="bottom-right" initialIsOpen={false} />

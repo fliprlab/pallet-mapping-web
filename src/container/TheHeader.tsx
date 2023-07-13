@@ -1,30 +1,22 @@
 import { Box, createStyles, Flex, Text } from "@mantine/core";
-import React, { memo, useMemo } from "react";
+import React, { memo } from "react";
 import { COLORS } from "../colors";
-import { logoutUser } from "../services/authenticate.service";
+
 import { IMAGES } from "../images";
-import { useActionData, useLocation, useNavigate } from "react-router-dom";
+
 import { useHeaderStore } from "../store/headerStore";
+import { useNavigate } from "react-router-dom";
 
 const TheHeader = () => {
   const { classes } = useStyle();
   const navigate = useNavigate();
-  const location = useLocation();
 
   const headerDate = useHeaderStore((h) => h.header);
 
-  const imageIcon = useMemo(() => {
-    if (location.pathname == "") {
-      return IMAGES.logOutIcon;
-    } else {
-      return IMAGES.backArrowIcon;
-    }
-  }, [location]);
-
   return (
     <Box className={classes.header}>
-      <Flex align={"center"} onClick={headerDate.iconClick}>
-        <div>
+      <Flex align={"center"}>
+        <div onClick={headerDate.iconClick}>
           <img
             src={headerDate.icon}
             className={classes.icon}
@@ -34,7 +26,7 @@ const TheHeader = () => {
         </div>
         <Text className={classes.label}>{headerDate.lebel}</Text>
       </Flex>
-      <Flex onClick={() => logoutUser()} align={"center"}>
+      <Flex onClick={() => navigate("/dashboard")} align={"center"}>
         <img src={IMAGES.intuFlipLogo} width={30} alt="logo" />
       </Flex>
     </Box>

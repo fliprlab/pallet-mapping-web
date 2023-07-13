@@ -22,7 +22,7 @@ const QrCodeScreenCreateBag = () => {
       iconClick: () => navigation(-3),
       lebel: ` (Create Bag)`,
     });
-  }, []);
+  }, [navigation, setHeader]);
 
   return (
     <Box mt={15}>

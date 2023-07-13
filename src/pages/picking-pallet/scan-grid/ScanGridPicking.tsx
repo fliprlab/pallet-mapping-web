@@ -1,6 +1,6 @@
 import { Box } from "@mantine/core";
 import React, { memo } from "react";
-import SectionHeader from "../../../components/section-header/SectionHeader";
+
 import KeyEventInput from "../../../components/input/KeyEventInput";
 import { useNavigate, useParams } from "react-router-dom";
 import { usePickUpItemMutation } from "../../../hooks/pick-up/mutation/usePickUpItem.mutation";

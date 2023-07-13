@@ -17,7 +17,7 @@ const SelectLocationCreateBag = () => {
       iconClick: () => navigate(-1),
       lebel: "Select Location (Create Bag)",
     });
-  }, []);
+  }, [navigate, setHeader]);
 
   return (
     <Box p={"2em"}>

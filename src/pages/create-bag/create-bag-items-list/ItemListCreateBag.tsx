@@ -27,7 +27,7 @@ const ItemListCreateBag = () => {
       iconClick: () => backModalRef.current?.toggleModal(),
       lebel: `Pallet ID: ${palletId} (Create Bag)`,
     });
-  }, []);
+  }, [palletId, setHeader]);
 
   const { isLoading, mutateAsync } = useCreateBagMutation();
 

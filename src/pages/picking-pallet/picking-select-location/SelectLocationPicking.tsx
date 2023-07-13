@@ -26,7 +26,7 @@ const SelectLocationPicking = () => {
       iconClick: () => navigate(-1),
       lebel: "Select Location (Picking Shipment)",
     });
-  }, []);
+  }, [navigate, setHeader]);
 
   const optionsLocation = useMemo(() => {
     if (!isLoading && data) {

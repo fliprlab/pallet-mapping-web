@@ -17,4 +17,5 @@ export const COLORS = {
   inputBg: "#FAFAFA",
   grey: "#F5F5F5",
   borderSecondary: "#EBEBEB",
+  success: "#00BE7A",
 };

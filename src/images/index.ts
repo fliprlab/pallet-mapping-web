@@ -18,6 +18,7 @@ import scanShipment from "./home/scan-shipment-banner-img.jpg";
 import createBag from "./home/create-bag-banner-img.jpg";
 import GenerateQr from "./home/generate-qr-banner-img.jpg";
 import cancelledShipment from "./home/cancelled-shipment-img.jpg";
+import dispatchItems from "./home/dispatchItem.jpg";
 // Home-end
 import logOutIcon from "./icons/logOut.png";
 // select Location
@@ -45,6 +46,7 @@ export const IMAGES = {
   createBag,
   GenerateQr,
   cancelledShipment,
+  dispatchItems,
   // select Location
   selectLocation,
 };

@@ -1,8 +1,5 @@
 import { Box } from "@mantine/core";
-import React, { useEffect, useMemo, useState } from "react";
-import SectionHeader from "../../../components/section-header/SectionHeader";
-import Select from "react-select";
-import { useGetLocationsQuery } from "../../../hooks/locations/useGetLocations.query";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FilledBtn from "../../../components/button/FilledBtn";
 import { useHeaderStore } from "../../../store/headerStore";
@@ -20,7 +17,7 @@ const SelectLocationPutAway = () => {
       iconClick: () => navigate(-1),
       lebel: "Select Location (Put Away)",
     });
-  }, []);
+  }, [navigate, setHeader]);
 
   return (
     <Box p={"2em"}>

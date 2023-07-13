@@ -7,6 +7,7 @@ import putAway_active from "./put-away-active.png";
 import picking from "./picking.png";
 import picking_active from "./picking-active.png";
 import trash from "./trash.png";
+import trashIcon from "./trash-icon.png";
 
 export const ICONS = {
   home,
@@ -18,4 +19,5 @@ export const ICONS = {
   picking,
   picking_active,
   trash,
+  trashIcon,
 };

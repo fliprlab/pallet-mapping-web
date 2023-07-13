@@ -16,37 +16,49 @@ const Dashboard = () => {
       iconClick: logoutUser,
       lebel: "Pallet Mapping",
     });
-  }, []);
+  }, [setHeader]);
 
   return (
     <Box p={"2em"}>
       <Box sx={{ marginBottom: "2em" }}>
         <Grid>
-          <Grid.Col sm={4}>
+          <Grid.Col sm={12}>
+            <FlowCard
+              btnTitle="MAP NOW"
+              cardTitleOne="PALLET"
+              cardTitleSecond="MAPPING"
+              color="#e55852"
+              onClick={() => {
+                navigate("/pallet-mapping");
+              }}
+              image={IMAGES.scanShipment}
+            />
+          </Grid.Col>
+          <Grid.Col sm={12}>
             <FlowCard
               btnTitle="CREATE"
               cardTitleOne="Create"
               cardTitleSecond="Bag"
-              color="#4292f3"
+              color="#f0903c"
               onClick={() => {
-                navigate("/create-bag/select-location");
+                navigate("/scan-items");
               }}
               image={IMAGES.createBag}
             />
           </Grid.Col>
-          <Grid.Col sm={4}>
+          <Grid.Col sm={12}>
             <FlowCard
               btnTitle="put away"
               cardTitleOne="Pallet put"
               cardTitleSecond="away."
-              color="#cd4d00"
+              color="#cd4e01"
               onClick={() => {
                 navigate("/put-away/select-location");
               }}
               image={IMAGES.putAway}
             />
           </Grid.Col>
-          <Grid.Col sm={4}>
+          <Grid.Col sm={12}>
             <FlowCard
               image={IMAGES.pickingShipment}
               btnTitle="Pick up"
@@ -55,6 +67,18 @@ const Dashboard = () => {
               color="#8d7020"
               onClick={() => {
                 navigate("/picking/select-location");
+              }}
+            />
+          </Grid.Col>
+          <Grid.Col sm={12}>
+            <FlowCard
+              image={IMAGES.dispatchItems}
+              btnTitle="DISPATCH"
+              cardTitleOne="DISPATCH"
+              cardTitleSecond="ITEMS"
+              color="#fc4669"
+              onClick={() => {
+                navigate("/dispatch-items/scan-pallet");
               }}
             />
           </Grid.Col>

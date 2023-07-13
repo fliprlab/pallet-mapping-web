@@ -57,7 +57,7 @@ const CreateBag = () => {
       iconClick: () => navigation(-1),
       lebel: "Create Bag",
     });
-  }, []);
+  }, [navigation, setHeader]);
 
   return (
     <Box p={"2em"}>

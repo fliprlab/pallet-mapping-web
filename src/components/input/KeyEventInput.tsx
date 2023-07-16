@@ -51,6 +51,7 @@ const KeyEventInput = (
 
   return (
     <TextInput
+      inputMode="none"
       ref={inputRef}
       autoFocus
       disabled={disabled}

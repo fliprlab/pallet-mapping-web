@@ -43,7 +43,7 @@ const SelectLocation = (props: Props) => {
           onChange={(e: any) => {
             onSelectLocation(e.value);
           }}
-          // onFocus={() => setFocusCount((e) => e + 1)}
+          onFocus={() => setFocusCount((e) => e + 1)}
           isSearchable={true}
         />
       </Box>

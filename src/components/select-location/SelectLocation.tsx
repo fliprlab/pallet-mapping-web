@@ -44,7 +44,7 @@ const SelectLocation = (props: Props) => {
             onSelectLocation(e.value);
           }}
           onFocus={() => setFocusCount((e) => e + 1)}
-          isSearchable={focusCount > 1}
+          isSearchable={true}
         />
       </Box>
     </React.Fragment>

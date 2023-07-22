@@ -56,7 +56,7 @@ const SelectLocationPicking = () => {
             setLocations(e.map((item: any) => item.value));
           }}
           onFocus={() => setFocusCount((e) => e + 1)}
-          isSearchable={focusCount > 1}
+          isSearchable={true}
         />
       </Box>
       <FilledBtn

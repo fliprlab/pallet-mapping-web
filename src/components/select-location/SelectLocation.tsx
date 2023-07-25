@@ -42,6 +42,11 @@ const SelectLocation = (props: Props) => {
           options={optionsLocation}
           onChange={(e: any) => {
             onSelectLocation(e.value);
+            customAlert.show({
+              title: "Selected Location",
+              message: "Location Selected " + e.value,
+              variant: "success",
+            });
           }}
           onFocus={() => setFocusCount((e) => e + 1)}
           isSearchable={true}

@@ -1,4 +1,10 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  RefAttributes,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { IMAGES } from "../../images";
 import { Box } from "@mantine/core";
 import SectionHeader from "../section-header/SectionHeader";
@@ -14,7 +20,7 @@ const SelectLocation = (props: Props) => {
   const [focusCount, setFocusCount] = useState(0);
   const { isLoading, data, refetch } = useGetLocationsQuery();
   const [inputValue, setInputValue] = useState("");
-  const selectRef = useRef(null);
+  const selectRef = useRef<any>(null);
 
   useEffect(() => {
     refetch();
@@ -54,12 +60,29 @@ const SelectLocation = (props: Props) => {
             if (action.action == "menu-close" && action.prevInputValue != "") {
               setInputValue(action.prevInputValue);
               onSelectLocation(action.prevInputValue);
+              // customAlert.show({
+              //   title: "Selected Location",
+              //   message: "Location Selected " + action.prevInputValue,
+              //   variant: "success",
+              // });
+            }
+          }}
+          onKeyDown={(e) => {
+            console.log("Key Down", e.key);
+
+            if (e.key == "Enter") {
+              setInputValue("");
               customAlert.show({
-                title: "Selected Location",
-                message: "Location Selected " + action.prevInputValue,
+                title: "Press Enter Called",
+                message: "Location Selected ",
                 variant: "success",
               });
             }
+
+            console.log("selectRef?.current", selectRef?.current);
+          }}
+          onChange={(e) => {
+            // e && setInputValue(e.value);
           }}
           onFocus={() => setFocusCount((e) => e + 1)}
           isSearchable={true}

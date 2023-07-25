@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { IMAGES } from "../../images";
 import { Box } from "@mantine/core";
 import SectionHeader from "../section-header/SectionHeader";
@@ -13,12 +13,14 @@ const SelectLocation = (props: Props) => {
   const { onSelectLocation } = props;
   const [focusCount, setFocusCount] = useState(0);
   const { isLoading, data, refetch } = useGetLocationsQuery();
+  const [inputValue, setInputValue] = useState("");
+  const selectRef = useRef(null);
 
   useEffect(() => {
     refetch();
   }, [refetch]);
 
-  const optionsLocation = useMemo(() => {
+  const optionsLocation: { value: string; label: string }[] = useMemo(() => {
     if (!isLoading && data) {
       return data.data.map((item: any) => {
         return { value: item.location, label: item.location };
@@ -27,6 +29,12 @@ const SelectLocation = (props: Props) => {
       return [];
     }
   }, [data, isLoading]);
+
+  const selectedValue = optionsLocation.filter((op) => {
+    const valueUpper = op.value.toUpperCase();
+    const inputValueUpper = inputValue.toUpperCase();
+    return valueUpper == inputValueUpper;
+  });
 
   return (
     <React.Fragment>
@@ -39,14 +47,19 @@ const SelectLocation = (props: Props) => {
         <SectionHeader title="SELECT YOUR" flowName="LOCATION" />
         <Select
           placeholder="Select Location"
+          ref={selectRef}
           options={optionsLocation}
-          onChange={(e: any) => {
-            onSelectLocation(e.value);
-            customAlert.show({
-              title: "Selected Location",
-              message: "Location Selected " + e.value,
-              variant: "success",
-            });
+          value={selectedValue}
+          onInputChange={(inputValue, action) => {
+            if (action.action == "menu-close" && action.prevInputValue != "") {
+              setInputValue(action.prevInputValue);
+              onSelectLocation(action.prevInputValue);
+              customAlert.show({
+                title: "Selected Location",
+                message: "Location Selected " + action.prevInputValue,
+                variant: "success",
+              });
+            }
           }}
           onFocus={() => setFocusCount((e) => e + 1)}
           isSearchable={true}

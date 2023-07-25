@@ -28,7 +28,7 @@ const KeyEventInput = (
   const {
     onEventTrigger,
     disabled = false,
-    alwaysFocus = true,
+    alwaysFocus = false,
     placeholder,
   } = props;
   const inputRef = useRef<HTMLInputElement>(null);
@@ -51,7 +51,6 @@ const KeyEventInput = (
 
   return (
     <TextInput
-      inputMode="none"
       ref={inputRef}
       autoFocus={true}
       disabled={disabled}

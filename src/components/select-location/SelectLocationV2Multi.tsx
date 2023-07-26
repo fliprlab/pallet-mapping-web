@@ -64,17 +64,20 @@ const SelectLocationV2Multi = (props: Props) => {
                 );
               if (find.length > 0) {
                 state.values.push(...find);
-
                 const unique = state.values.filter(
                   (value, index, array) => array.indexOf(value) === index
                 );
-
                 setState({
                   values: unique,
                   search: "",
                   dropdown: false,
                 });
               } else {
+                setState({
+                  values: state.values,
+                  search: "",
+                  dropdown: false,
+                });
                 customAlert.show({
                   title: "Invalid",
                   message: `"${state.search}" Location Not Found`,

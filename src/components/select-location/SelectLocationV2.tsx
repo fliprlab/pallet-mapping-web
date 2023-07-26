@@ -71,6 +71,11 @@ const SelectLocationV2 = (props: Props) => {
                   dropdown: false,
                 });
               } else {
+                setState({
+                  values: state.values,
+                  search: "",
+                  dropdown: false,
+                });
                 customAlert.show({
                   title: "Invalid",
                   message: `"${state.search}" Location Not Found`,

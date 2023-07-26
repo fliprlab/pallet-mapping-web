@@ -1,24 +1,16 @@
 import { Box } from "@mantine/core";
-import React, { useEffect, useMemo, useState } from "react";
-import Select from "react-select";
-import { useGetLocationsQuery } from "../../../hooks/locations/useGetLocations.query";
-
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import FilledBtn from "../../../components/button/FilledBtn";
 import { usePickingStore } from "../../../store/usePickingStore";
 import { useHeaderStore } from "../../../store/headerStore";
 import { IMAGES } from "../../../images";
+import SelectLocationV2Multi from "../../../components/select-location/SelectLocationV2Multi";
 
 const SelectLocationPicking = () => {
-  const [focusCount, setFocusCount] = useState(0);
   const navigate = useNavigate();
   const { locations, setLocations } = usePickingStore((state) => state);
-  const { isLoading, data, refetch } = useGetLocationsQuery();
   const setHeader = useHeaderStore((h) => h.setHeader);
-
-  useEffect(() => {
-    refetch();
-  }, [refetch]);
 
   useEffect(() => {
     setHeader({
@@ -27,16 +19,6 @@ const SelectLocationPicking = () => {
       lebel: "Select Location (Picking Shipment)",
     });
   }, [navigate, setHeader]);
-
-  const optionsLocation = useMemo(() => {
-    if (!isLoading && data) {
-      return data.data.map((item: any) => {
-        return { value: item.location, label: item.location };
-      });
-    } else {
-      return [];
-    }
-  }, [data, isLoading]);
 
   return (
     <Box p={"2em"}>
@@ -48,15 +30,8 @@ const SelectLocationPicking = () => {
         />
       </Box>
       <Box mt={"xs"}>
-        <Select
-          isMulti
-          placeholder="Select Location"
-          options={optionsLocation}
-          onChange={(e) => {
-            setLocations(e.map((item: any) => item.value));
-          }}
-          onFocus={() => setFocusCount((e) => e + 1)}
-          isSearchable={true}
+        <SelectLocationV2Multi
+          onSelectMultiLocation={(locations) => setLocations(locations)}
         />
       </Box>
       <FilledBtn

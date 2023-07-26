@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import FilledBtn from "../../../components/button/FilledBtn";
 import { useHeaderStore } from "../../../store/headerStore";
 import { IMAGES } from "../../../images";
-import SelectLocation from "../../../components/select-location/SelectLocation";
+import SelectLocationV2 from "../../../components/select-location/SelectLocationV2";
 
 const SelectLocationCreateBag = () => {
   const navigate = useNavigate();
@@ -21,7 +21,9 @@ const SelectLocationCreateBag = () => {
 
   return (
     <Box p={"2em"}>
-      <SelectLocation onSelectLocation={(location) => setLocation(location)} />
+      <SelectLocationV2
+        onSelectLocation={(location) => setLocation(location)}
+      />
       <FilledBtn
         disabled={location === ""}
         onClick={() => {

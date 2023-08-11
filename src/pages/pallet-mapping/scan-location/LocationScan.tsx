@@ -5,13 +5,12 @@ import { useHeaderStore } from "../../../store/headerStore";
 import { IMAGES } from "../../../images";
 import { useNavigate } from "react-router-dom";
 import KeyEventInput from "../../../components/input/KeyEventInput";
-
-import { useScanLocationMutation } from "../../../hooks/pallet-mapping/mutation/useScanLocation.mutation";
+import { useScanDestinationMutation } from "../../../hooks/destination/mutation/useDestination.mutation";
 
 const LocationScan = () => {
   const navigate = useNavigate();
   const setHeader = useHeaderStore((h) => h.setHeader);
-  const { isLoading, mutateAsync } = useScanLocationMutation();
+  const { isLoading, mutateAsync } = useScanDestinationMutation();
 
   useEffect(() => {
     setHeader({

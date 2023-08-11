@@ -30,6 +30,7 @@ const MapPalletItem = () => {
     }
     const res = await mutateAsync({
       location: location ?? "",
+      zone: zone ?? "",
       palletId: pallet,
       itemId: itemId ?? "",
     });

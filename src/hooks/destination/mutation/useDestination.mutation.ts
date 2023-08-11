@@ -3,21 +3,18 @@ import { request } from "../../../services/axios.service";
 import { apiUrls } from "../../api-urls";
 
 interface IData {
-  palletId: string;
-  location: string;
-  itemId: string;
-  zone: string;
+  scan: string;
 }
 
-const get = async (data: IData) => {
+const pickUp = async (data: IData) => {
   const res: TServerResponse = await request({
-    url: apiUrls.MAP_PALLET_ITEM,
+    url: apiUrls.SCAN_DESTINATION,
     method: "POST",
     data,
   });
   return res;
 };
 
-export const useMapItemPalletMutation = () => {
-  return useMutation(get);
+export const useScanDestinationMutation = () => {
+  return useMutation(pickUp);
 };

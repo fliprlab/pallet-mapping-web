@@ -1,5 +1,6 @@
 import { authApis } from "./auth.api";
 import { createBagApis } from "./createBag.api";
+import { dispatchApi } from "./dispatch";
 import { locationApis } from "./location.api";
 import { palletApis } from "./pallet-mapping.api";
 import { pickUpApis } from "./pickUp.api";
@@ -14,4 +15,7 @@ export const apiUrls = {
   ...createBagApis,
   ...palletApis,
   ...scanItemsApis,
+  ...{
+    dispatch: dispatchApi,
+  },
 };

@@ -1,65 +1,51 @@
-import React, { useEffect, useMemo } from "react";
-
-import { Box, Flex, Text } from "@mantine/core";
+import React, { useEffect } from "react";
+import { Box } from "@mantine/core";
 import { useHeaderStore } from "../../../store/headerStore";
 import { IMAGES } from "../../../images";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import KeyEventInput from "../../../components/input/KeyEventInput";
-import { useDispatchPalletItemsQuery } from "../../../hooks/dispatch-items/query/useDispatchPalletItems.query";
-import QrCode from "../../../components/qr-code/QrCode";
+import { api } from "../../../hooks";
 
 const ScanDispatchPallet = () => {
   const navigate = useNavigate();
   const setHeader = useHeaderStore((h) => h.setHeader);
-
-  const pallet: any = useParams().palletId;
-
-  const { isLoading, data, refetch } = useDispatchPalletItemsQuery({
-    scan: pallet,
-  });
-
-  const palletData: { qrCodeData: string; virtualId: string } = useMemo(() => {
-    if (!isLoading && data && data.status === "success") {
-      return data.data;
-    } else if (data && data.data.status === "error") {
-      navigate("/dispatch-items/scan-pallet", { replace: true });
-      customAlert.show({
-        variant: "error",
-        title: data?.data.title,
-        message: data?.data.message,
-      });
-    }
-  }, [isLoading, data, navigate]);
-
-  useEffect(() => {
-    if (pallet) {
-      refetch();
-    }
-  }, [pallet, refetch]);
+  const { isLoading, mutateAsync } = api.dispatch.mutation.useScanPallet();
 
   useEffect(() => {
     setHeader({
       icon: IMAGES.backArrowIcon,
-      iconClick: () =>
-        navigate(pallet ? "/dispatch-items/scan-pallet" : "/dashboard"),
-      lebel: "Scan Pallet",
+      iconClick: () => navigate("/dashboard"),
+      lebel: "Scan Pallet For Dispatch",
     });
-  }, [navigate, setHeader, pallet]);
+  }, [navigate, setHeader]);
+
+  const handleScan = async (scan: string) => {
+    if (isLoading) {
+      return;
+    }
+    const res = await mutateAsync({ scan });
+
+    if (res.status === "success") {
+      navigate(`/dispatch-items/scan-pallet/${res.data?.pallet_id}`);
+    } else {
+      customAlert.show({
+        message: res.message,
+        title: "Failed",
+        variant: "error",
+      });
+    }
+  };
 
   return (
     <Box p={"2em"}>
-      {!pallet && (
-        <Box mt={"xs"}>
-          <KeyEventInput
-            placeholder="Enter Pallet Id"
-            onEventTrigger={(e) => {
-              navigate(`/dispatch-items/scan-pallet/${e}`);
-            }}
-          />
-        </Box>
-      )}
+      <Box mt={"xs"}>
+        <KeyEventInput
+          placeholder="Enter Pallet Id"
+          onEventTrigger={handleScan}
+        />
+      </Box>
 
-      {palletData && (
+      {/* {palletData && (
         <Flex justify={"center"} align={"center"} direction={"column"}>
           <Box id="qrCodeBlock" p={"sm"}>
             <QrCode size={200} value={palletData.qrCodeData} />
@@ -71,7 +57,7 @@ const ScanDispatchPallet = () => {
             </Text>
           </Box>
         </Flex>
-      )}
+      )} */}
     </Box>
   );
 };

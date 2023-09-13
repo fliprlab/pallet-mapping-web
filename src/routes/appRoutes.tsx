@@ -22,6 +22,7 @@ import MapPalletItem from "../pages/scan-item/map-item-pallet/MapPalletItem";
 import PalletsList from "../pages/view-pallets/list-of-pallets/PalletsList";
 import PalletItems from "../pages/view-pallets/pallet-items/PalletItems";
 import ScanDispatchPallet from "../pages/dispatch-items/scan-dispatch-pallet/ScanDispatchPallet";
+import ScanDispatchLocation from "../pages/dispatch-items/scan-dispatch-location/ScanDispatchLocation";
 
 export const appRouter = createBrowserRouter([
   {
@@ -118,7 +119,7 @@ export const appRouter = createBrowserRouter([
       },
       {
         path: "/dispatch-items/scan-pallet/:palletId",
-        element: <ScanDispatchPallet />,
+        element: <ScanDispatchLocation />,
       },
     ],
     errorElement: <ErrorPage />,

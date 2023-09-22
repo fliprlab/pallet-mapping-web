@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 import { Box } from "@mantine/core";
 import { useHeaderStore } from "../../../store/headerStore";
@@ -11,7 +11,6 @@ const LocationScan = () => {
   const navigate = useNavigate();
   const setHeader = useHeaderStore((h) => h.setHeader);
   const { isLoading, mutateAsync } = useScanDestinationMutation();
-  const [scanString, setScanString] = useState("");
 
   useEffect(() => {
     setHeader({
@@ -26,12 +25,10 @@ const LocationScan = () => {
       return;
     }
 
-    setScanString(scanString + "||" + scan);
-
     const res = await mutateAsync({ scan });
 
     if (res.status === "success") {
-      // navigate(`/pallet-mapping/scan-pallet/${res.data}`, { replace: true });
+      navigate(`/pallet-mapping/scan-pallet/${res.data}`, { replace: true });
       customAlert.show({
         message: `Scan successfully -- ${scan}`,
         title: "success",
@@ -48,7 +45,6 @@ const LocationScan = () => {
 
   return (
     <Box p={"2em"}>
-      <p>{scanString}</p>
       <Box mt={"xs"}>
         <KeyEventInput
           placeholder="Enter Location"

@@ -15,6 +15,7 @@ const ScanPallet = () => {
   const location = useParams().location;
   const [palletId, setPalletId] = useState("");
   const { isLoading, mutateAsync } = useScanPalletMutation();
+  const [scanString, setScanString] = useState("");
 
   useEffect(() => {
     setHeader({
@@ -29,6 +30,7 @@ const ScanPallet = () => {
     if (isLoading) {
       return;
     }
+    setScanString(pallet + "||" + scanString);
     const res = await mutateAsync({
       location: location ?? "",
       palletId: pallet,
@@ -40,10 +42,10 @@ const ScanPallet = () => {
         title: res.title,
         variant: "success",
       });
-      navigate("/pallet-mapping", { replace: true });
+      // navigate("/pallet-mapping", { replace: true });
     } else {
       customAlert.show({
-        message: res.data.message,
+        message: `${res.data.message} Pallet -- ${pallet}`,
         title: res.data.title,
         variant: "error",
       });
@@ -64,6 +66,7 @@ const ScanPallet = () => {
 
       <ShadowView text={location ?? ""} />
       {palletId && <ShadowView text={palletId} />}
+      <p>{scanString}</p>
     </Box>
   );
 };

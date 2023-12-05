@@ -6,6 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import KeyEventInput from "../../../components/input/KeyEventInput";
 import { api } from "../../../hooks";
 import QrCode from "../../../components/qr-code/QrCode";
+import Items from "./Items";
 
 const ScanDispatchLocation = () => {
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ const ScanDispatchLocation = () => {
     qrCodeData: string;
     palletName: string;
     virtualId: string;
+    shipmentItems: any[];
   }>();
 
   useEffect(() => {
@@ -68,6 +70,7 @@ const ScanDispatchLocation = () => {
               Virtual Id :- {dispatchData.virtualId}
             </Text>
           </Box>
+          <Items items={dispatchData.shipmentItems} />
         </Flex>
       )}
     </Box>

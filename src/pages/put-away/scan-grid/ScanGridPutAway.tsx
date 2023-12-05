@@ -51,7 +51,10 @@ const ScanGridPutAway = () => {
         <KeyEventInput
           ref={inputRef}
           placeholder="Enter Grid Id"
-          onEventTrigger={setGridId}
+          onEventTrigger={(scan) => {
+            setGridId(scan);
+            modalRef.current?.toggleModal();
+          }}
         />
       </Box>
       <Text weight={500} my={"md"} align="center">
@@ -59,10 +62,8 @@ const ScanGridPutAway = () => {
       </Text>
       <FilledBtn
         title="Map Grid With Pallet"
-        onClick={() => {
-          modalRef.current?.toggleModal();
-        }}
-        disabled={gridId === ""}
+        onClick={() => {}}
+        disabled={true}
         loading={isLoading}
       />
       <ConfirmModal

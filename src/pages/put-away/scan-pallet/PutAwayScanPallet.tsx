@@ -1,17 +1,15 @@
-import { Box, Text } from "@mantine/core";
-import React, { useEffect, useState, useRef } from "react";
+import { Box } from "@mantine/core";
+import React, { useEffect, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import KeyEventInput, {
   IKeyKeyEventInputRef,
 } from "../../../components/input/KeyEventInput";
-import FilledBtn from "../../../components/button/FilledBtn";
 import { useGridCheckValidPalletMutation } from "../../../hooks/put-away/useGridCheckValidPallet.mutation";
 import { showNotification } from "@mantine/notifications";
 
 const PutAwayScanPallet = () => {
   const navigation = useNavigate();
   const location = useParams().location;
-  const [palletId, setPalletId] = useState("");
   const inputRef = useRef<IKeyKeyEventInputRef>(null);
 
   useEffect(() => {
@@ -20,9 +18,9 @@ const PutAwayScanPallet = () => {
     }
   }, [location, navigation]);
 
-  const { isLoading, mutateAsync } = useGridCheckValidPalletMutation();
+  const { mutateAsync } = useGridCheckValidPalletMutation();
 
-  const checkValidPallet = async () => {
+  const scanPallet = async (palletId: string) => {
     const res = await mutateAsync({ palletId, location: location ?? "" });
     if (res.status === "success") {
       navigation(`/put-away/scan-grid/${location}/${palletId}`);
@@ -31,7 +29,6 @@ const PutAwayScanPallet = () => {
         message: res.data.message,
         color: "red",
       });
-      setPalletId("");
       inputRef.current?.focus();
     }
   };
@@ -42,18 +39,12 @@ const PutAwayScanPallet = () => {
         <KeyEventInput
           ref={inputRef}
           placeholder="Enter Pallet Id"
-          onEventTrigger={setPalletId}
+          onEventTrigger={scanPallet}
         />
       </Box>
-      <Text weight={500} my={"md"} align="center">
+      {/* <Text weight={500} my={"md"} align="center">
         Pallet Id :- {palletId}
-      </Text>
-      <FilledBtn
-        title="Scan Grid"
-        onClick={checkValidPallet}
-        disabled={palletId === ""}
-        loading={isLoading}
-      />
+      </Text> */}
     </Box>
   );
 };

@@ -46,7 +46,7 @@ function Items(props: Props) {
         })}
       </Box>
 
-      {itemsArray.shipment.length > 0 && (
+      {itemsArray.cancelled.length > 0 && (
         <Box
           mt={10}
           style={{
@@ -55,7 +55,7 @@ function Items(props: Props) {
         >
           <Text
             size={12}
-          >{`Cancelled Item Count: ${itemsArray.shipment.length}`}</Text>
+          >{`Cancelled Item Count: ${itemsArray.cancelled.length}`}</Text>
           <FilledBtn title="View Cancelled Item QR Code" onClick={() => {}} />
         </Box>
       )}

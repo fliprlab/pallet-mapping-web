@@ -121,6 +121,10 @@ export const appRouter = createBrowserRouter([
         path: "/dispatch-items/scan-pallet/:palletId",
         element: <ScanDispatchLocation />,
       },
+      {
+        path: "/dispatch-items/scan-pallet/:palletId/:cancelled",
+        element: <ScanDispatchLocation />,
+      },
     ],
     errorElement: <ErrorPage />,
   },

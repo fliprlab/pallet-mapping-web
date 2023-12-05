@@ -1,39 +1,49 @@
-import React, { useEffect, useState } from "react";
-import { Box, Flex, Text } from "@mantine/core";
+import React, { useEffect, useState, useMemo } from "react";
+import { Box, Text } from "@mantine/core";
 import { useHeaderStore } from "../../../store/headerStore";
 import { IMAGES } from "../../../images";
 import { useNavigate, useParams } from "react-router-dom";
 import KeyEventInput from "../../../components/input/KeyEventInput";
 import { api } from "../../../hooks";
-import QrCode from "../../../components/qr-code/QrCode";
-import Items from "./Items";
+import QrCodeDispatch from "./QrCodeDispatch";
+import FilledBtn from "../../../components/button/FilledBtn";
+
+export interface DispatchQrData {
+  qrCodeData: string;
+  qrCodeDataCancelled: string;
+  palletName: string;
+  virtualId: string;
+  shipmentItems: any[];
+}
 
 const ScanDispatchLocation = () => {
   const navigate = useNavigate();
-  const { palletId } = useParams();
+  const { palletId, cancelled } = useParams();
   const setHeader = useHeaderStore((h) => h.setHeader);
   const { isLoading, mutateAsync } = api.dispatch.mutation.useScanLocation();
-  const [dispatchData, setDispatchData] = useState<{
-    qrCodeData: string;
-    palletName: string;
-    virtualId: string;
-    shipmentItems: any[];
-  }>();
+  const [dispatchData, setDispatchData] = useState<DispatchQrData>();
 
   useEffect(() => {
-    setHeader({
-      icon: IMAGES.backArrowIcon,
-      iconClick: () => navigate(-1),
-      lebel: "Scan Location",
-    });
-  }, [navigate, setHeader]);
+    if (cancelled) {
+      setHeader({
+        icon: IMAGES.backArrowIcon,
+        iconClick: () => navigate(-1),
+        lebel: "Cancelled Item",
+      });
+    } else {
+      setHeader({
+        icon: IMAGES.backArrowIcon,
+        iconClick: () => navigate(-1),
+        lebel: "Scan Location",
+      });
+    }
+  }, [navigate, setHeader, cancelled]);
 
   const handleScan = async (scan: string) => {
     if (isLoading) {
       return;
     }
     const res = await mutateAsync({ scan, pallet: palletId || "" });
-
     if (res.status === "success") {
       setDispatchData(res.data);
       setHeader({
@@ -50,6 +60,40 @@ const ScanDispatchLocation = () => {
     }
   };
 
+  const qrData = useMemo(() => {
+    const qrData = {
+      items: [] as any[],
+      cancelledItems: [] as any[],
+      palletName: "",
+      qrCodeData: "",
+      virtualId: "",
+      itemTitle: "",
+    };
+    if (!dispatchData) {
+      return qrData;
+    }
+
+    qrData.cancelledItems = dispatchData.shipmentItems.filter(
+      (item) => item.cancelled
+    );
+
+    qrData.palletName = dispatchData.palletName;
+
+    if (cancelled) {
+      qrData.virtualId = "";
+      qrData.items = qrData.cancelledItems;
+      qrData.itemTitle = `Cancelled Item Count: ${qrData.items.length}`;
+    } else {
+      qrData.virtualId = dispatchData.virtualId;
+      qrData.items = dispatchData.shipmentItems.filter(
+        (item) => !item.cancelled
+      );
+      qrData.itemTitle = `Item Count: ${qrData.items.length}`;
+    }
+
+    return qrData;
+  }, [dispatchData, cancelled]);
+
   return (
     <Box p={"2em"}>
       {!dispatchData ? (
@@ -60,18 +104,33 @@ const ScanDispatchLocation = () => {
           />
         </Box>
       ) : (
-        <Flex justify={"center"} align={"center"} direction={"column"}>
-          <Box id="qrCodeBlock" p={"sm"}>
-            <QrCode size={200} value={dispatchData.qrCodeData} />
-            <Text size={12} weight={400} color="#373737" mt={10} align="center">
-              Pallet Id :- {dispatchData.palletName}
-            </Text>
-            <Text size={15} weight={700} color="#373737" mt={10} align="center">
-              Virtual Id :- {dispatchData.virtualId}
-            </Text>
-          </Box>
-          <Items items={dispatchData.shipmentItems} />
-        </Flex>
+        <Box>
+          <QrCodeDispatch
+            items={qrData.items}
+            palletName={qrData.palletName}
+            qrCodeData={qrData.qrCodeData}
+            virtualId={qrData.virtualId}
+            itemTitle={`Item Count: ${qrData.items.length}`}
+          />
+          {qrData.cancelledItems.length > 0 && !cancelled && (
+            <Box
+              mt={10}
+              style={{
+                width: "100%",
+              }}
+            >
+              <Text
+                size={12}
+              >{`Cancelled Item Count: ${qrData.cancelledItems.length}`}</Text>
+              <FilledBtn
+                title="View Cancelled Item QR Code"
+                onClick={() => {
+                  navigate(`/dispatch-items/scan-pallet/${palletId}/cancelled`);
+                }}
+              />
+            </Box>
+          )}
+        </Box>
       )}
     </Box>
   );

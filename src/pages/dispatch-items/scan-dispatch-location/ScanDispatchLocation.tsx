@@ -83,14 +83,15 @@ const ScanDispatchLocation = () => {
       qrData.virtualId = "";
       qrData.items = qrData.cancelledItems;
       qrData.itemTitle = `Cancelled Item Count: ${qrData.items.length}`;
+      qrData.qrCodeData = dispatchData.qrCodeDataCancelled;
     } else {
       qrData.virtualId = dispatchData.virtualId;
       qrData.items = dispatchData.shipmentItems.filter(
         (item) => !item.cancelled
       );
       qrData.itemTitle = `Item Count: ${qrData.items.length}`;
+      qrData.qrCodeData = dispatchData.qrCodeData;
     }
-
     return qrData;
   }, [dispatchData, cancelled]);
 
